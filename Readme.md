@@ -1,7 +1,6 @@
 # Todo App as a Single Page Application
 
-<img src="https://ibb.co/1Tk2Xkd" title="Todo App"/>
-
+<img src="https://i.ibb.co/5LPcjPn/Yocket-Screeenshot.png" alt="Yocket-Screeenshot" border="0">
 The SPA with 5 pages (routes):
 
 - A Homepage to ask Signup or Signin to the application,
