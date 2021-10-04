@@ -31,10 +31,12 @@ router.post(
     auth,
     [
       check("text", "Todo is required").not().isEmpty(),
-      check("tagId", "Tag is required").not().isEmpty(),
+      check("tagId", "Tag is required").not().isEmpty()
+
     ],
   ],
   async (req, res) => {
+    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -59,6 +61,8 @@ router.post(
             : [tag],
         text: req.body.text,
         user: req.user.id,
+        priority: req.body.priority,
+        deadline: req.body.deadline
       });
 
       const todo = await newTodo.save();

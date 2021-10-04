@@ -21,5 +21,5 @@ export const formatDate = (date, type) => {
     return day + '/' + month + '/' + year + ' ';
   }
 
-  return day + '/' + month + '/' + year + ' ' + hour + ':' + minutes;
+  return day + '/' + month + '/' + year;
 };

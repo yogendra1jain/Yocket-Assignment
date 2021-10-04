@@ -22,9 +22,19 @@ const title = [
     className: 'col-xs-2'
   },
   {
+    title: 'Due Date',
+    fieldName: 'deadline',
+    className: 'col-xs-2'
+  },
+  {
+    title: 'Priority',
+    fieldName: 'priority',
+    className: 'col-xs-2'
+  },
+  {
     title: 'Created At',
     fieldName: 'date',
-    className: 'col-xs-3'
+    className: 'col-xs-2'
   },
 
   {
@@ -32,7 +42,7 @@ const title = [
     fieldName: 'icon',
 
     icons: ['Edit', 'Check', 'TrashAlt'],
-    className: 'col-xs-3'
+    className: 'col-xs-2'
   }
 ];
 
@@ -107,6 +117,13 @@ const TodoList = () => {
         break;
     }
   };
+  const sortPriority = (list) => {
+    let highPriority = list.filter(x => x.priority == "High");
+    let medium = list.filter(x => x.priority == "Medium");
+    let low = list.filter(x => x.priority == "Low");
+    return [...highPriority, ...medium, ...low]
+
+  }
   return (
     <>
       <Modal
@@ -133,7 +150,7 @@ const TodoList = () => {
         </h2>
       ) : (
         <FlexTable
-          data={pageOfItems}
+          data={sortPriority(pageOfItems)}
           titleData={title}
           iconClick={(e, icon, id) => handleClick(e, icon, id)}
           tableId={'todo-list-flex-table'}

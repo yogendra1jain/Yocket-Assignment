@@ -36,6 +36,19 @@ const FlexTable = ({ titleData = [], data = [], iconClick, tableId }) => {
                   </div>
                 );
               }
+              if (title.fieldName === 'deadline') {
+                return (
+                  <div
+                    className={`flexTable-cell ${title.fieldName}-cell`}
+                    key={'column' + k}
+                  >
+                    <div className="flexTable-cell--heading">{title.title}</div>
+                    <div className={`flexTable-cell--content ${title.fieldName}-content`}>
+                      {title.fieldName === 'deadline' && formatDate(new Date(`${item.deadline}`))}
+                    </div>
+                  </div>
+                );
+              }
               if (title.fieldName === 'tags') {
                 return (
                   <div

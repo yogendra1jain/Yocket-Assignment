@@ -13,6 +13,14 @@ const TodoSchema = new Schema({
     type: String,
     required: true,
   },
+  priority: {
+    type: String,
+    required: true,
+  },
+  deadline: {
+    type: Date,
+    required: true,
+  },
   completed: {
     type: Boolean,
     default: false,

@@ -10,7 +10,9 @@ const Todo = ({ description, setModal }) => {
   const [formData, setFormData] = useState({
     tag: !loading && description === 'Update' ? todo.tags[0].name : '',
     tagId: !loading && description === 'Update' ? todo.tags[0]._id : '',
-    text: !loading && description === 'Update' ? todo.text : ''
+    text: !loading && description === 'Update' ? todo.text : '',
+    deadline: !loading && description === 'Update' ? todo.deadline : '',
+    priority: !loading && description === 'Update' ? todo.priority : '',
   });
 
   const { getTags, tags } = useTags();
@@ -19,9 +21,10 @@ const Todo = ({ description, setModal }) => {
     getTags();
   }, [getTags]);
 
-  const { text, tag, tagId } = formData;
+  const { text, tag, tagId, deadline, priority } = formData;
 
   const onChange = (e) => {
+    debugger;
     return setFormData(
       e.target.name === 'tag' && tagId !== '615a99fa2b3d5fc1e0da16e7'
         ? {
@@ -36,9 +39,10 @@ const Todo = ({ description, setModal }) => {
   };
 
   const onSubmit = async (e) => {
+    debugger;
     e.preventDefault();
-    description === 'Add' && addTodo({ text, tagId, tag });
-    description === 'Update' && updateTodo({ text, tagId, tag }, todo._id);
+    description === 'Add' && addTodo({ text, tagId, tag, priority, deadline });
+    description === 'Update' && updateTodo({ text, tagId, tag, priority, deadline }, todo._id);
     setModal({ isOpen: false });
   };
   return loading ? (
@@ -84,6 +88,58 @@ const Todo = ({ description, setModal }) => {
                       key={tag._id}
                     >
                       {tag.name}
+                    </option>
+                  );
+                })}
+              </Input>
+              <Input
+                inputTextRight="X"
+                inputTextRightOnClick={() => {
+                  setFormData({ ...formData, tag: '', tagId: '' });
+                }}
+                label="Create a Tag"
+                id={`todo-tag-other-${description}`}
+                type="text"
+                pClassName={tagId !== '615a99fa2b3d5fc1e0da16e7' ? 'd-none' : 'd-block'}
+                value={tagId === '615a99fa2b3d5fc1e0da16e7' ? tag : ''}
+                onChange={
+                  tagId === '615a99fa2b3d5fc1e0da16e7' ? (e) => onChange(e) : () => { }
+                }
+                name="tag"
+                autoComplete="off"
+              />
+            </Col>
+            <Col xs={12} sm={12} md={8}>
+              <Input
+                label="Deadline"
+                id="todo-deadline"
+                type="date"
+                value={deadline}
+                name="deadline"
+                onChange={(e) => onChange(e)}
+                autoComplete="off"
+              />
+            </Col>
+            <Col xs={12} sm={12} md={4}>
+              <Input
+                as="select"
+                label="Priority"
+                id={`todo-priority`}
+                type="text"
+                value={priority}
+                onChange={(e) => onChange(e)}
+                name="priority"
+                autoComplete="off"
+                pClassName={tagId === '615a99fa2b3d5fc1e0da16e7' ? 'd-none' : ''}
+              >
+                {[{ id: 1, name: "High" }, { id: 2, name: "Medium" }, { id: 3, name: "Low" }].map((priority) => {
+                  return (
+                    <option
+                      disabled={priority._id === '5f568965d096a9b777ea4123'}
+                      option-id={priority._id}
+                      key={priority._id}
+                    >
+                      {priority.name}
                     </option>
                   );
                 })}
